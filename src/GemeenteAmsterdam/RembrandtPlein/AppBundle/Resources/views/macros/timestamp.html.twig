@@ -1,0 +1,18 @@
+{%- macro stamp(date, long, extra) -%}
+
+  <time>
+    {% if date|date_modify('-6 hour')|date('d') != date|date_modify('+3 hour')|date('d') %}
+      {{ date|date_modify('-6 hour')|localizeddate('none', 'none', 'nl', false, 'EE') }}/{{ date|date_modify('+3 hour')|localizeddate('none', 'none', 'nl', false, 'EE') }}
+      {{ date|localizeddate('none', 'none', 'nl', false, 'd MMM') }}
+    {% else %}
+      {{ date|localizeddate('none', 'none', 'nl', false, 'EE d MMM') }}
+    {% endif %}
+
+    {% if long %}<strong>{% endif %}
+
+    {{ date|localizeddate('none', 'none', 'nl', false, 'HH:mm') }}
+
+    {% if long %}</strong>{% endif %}
+  </time>
+
+{%- endmacro -%}

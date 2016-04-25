@@ -1,0 +1,37 @@
+<div class="message-input blijf-op-de-hoogte">
+  {% if melding.melderNotificaties == false or activateSmsForm.errors|length > 0 %}
+    <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_activatesms', {'meldingUuid': melding.uuid, 'secret': melding.secret}) }}">
+      <p>
+        <label>
+          <input type="checkbox" name="actief" {{ activateSmsForm.data.actief ? 'checked' : '' }} data-handler="toggle-visibility" data-target="sms-extras" data-prevent-default="false" value="1">
+          <span>Blijf ook op de hoogte via <b>SMS</b></span>
+        </label>
+      </p>
+      <div class="is-hidden{{ activateSmsForm.errors|length > 0 ? ' is-active' : '' }}" id="sms-extras">
+        {% if activateSmsForm.errors|length > 0 %}
+          <ul class="small error">
+            {% for error in activateSmsForm.errors %}
+              <li>{{ error.message }}</li>
+            {% endfor %}
+          </ul>
+        {% endif %}
+        {% if activateSmsForm.data.mobielnummer is empty or activateSmsForm.errors|length > 0 %}
+          <label><strong>Mobiele telefoonnummer</strong> <input type="tel" name="mobielnummer" value="{{ activateSmsForm.data.mobielnummer }}" placeholder="Bijvoorbeeld 0612345678"></label>
+        {% else %}
+          <p>Uw eerder ingevulde nummer is <b>{{ activateSmsForm.data.mobielnummer }}</b></p>
+          <input type="hidden" name="mobielnummer" value="{{ activateSmsForm.data.mobielnummer }}">
+        {% endif %}
+        <p class="buttons">
+          <button type="submit" class="button">Houd me op de hoogte via&nbsp;SMS <i class="icon-chevron"></i></button>
+        </p>
+      </div>
+    </form>
+  {% else %}
+    <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_deactivatesms', {'meldingUuid': melding.uuid, 'secret': melding.secret}) }}">
+      <p>We houden u ook op de hoogte via <b>{{ activateSmsForm.data.mobielnummer }}</b></p>
+      <p class="buttons">
+        <input type="submit" value="Stop SMS voor deze melding">
+      </p>
+    </form>
+  {% endif %}
+</div>

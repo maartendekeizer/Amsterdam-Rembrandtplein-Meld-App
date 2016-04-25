@@ -1,0 +1,76 @@
+.action-sheet {
+  margin: 0 (-$padding/2);
+  padding: $lineHeight $padding/2 0;
+  border-top: 5px solid #ccc;
+  .options > * + * {
+    margin: $lineHeight/2 0 0;
+  }
+  .options ul {
+    padding: 0;
+    list-style: none;
+    li {
+      border-top: 1px solid darken($borderColor, 20);
+      &:first-child {
+        border-top: none;
+      }
+    }
+  }
+}
+
+.has-js .action-sheet {
+
+  position: relative;
+  margin: 0;
+  padding: 0;
+  z-index: 5;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity .2s ease-out;
+  border: none;
+
+  > button {
+    display: block;
+    content: '';
+    position: fixed;
+    z-index: -1;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background: #000;
+    background: rgba(0, 0, 0, .6);
+    border-radius: 0;
+    border: none;
+    cursor: default;
+  }
+
+  .options {
+    position: fixed;
+    margin: 0 0 0 (-$padding/2);
+    padding: $padding/2;
+    bottom: 0;
+    width: 100%;
+    max-height: 100%;
+    max-width: $bodyWidth;
+    background-color: #fff;
+    transition: transform .2s ease-out;
+    transform: translateY(100%);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+//    border-radius: 10px 10px 0 0;
+    h2 {
+      text-align: center;
+      font-size: 100%;
+      small {
+        display: block;
+      }
+    }
+  }
+  &.is-active {
+    visibility: visible;
+    opacity: 1;
+    .options {
+      transform: translateY(0);
+    }
+  }
+}

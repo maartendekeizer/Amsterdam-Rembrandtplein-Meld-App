@@ -1,0 +1,37 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Meld overlast Rembrandtplein</a></p>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <section>
+    <h2>Niet (meer) aanwezig</h2>
+    <p>Op dit moment zijn we niet (meer) aanwezig op het Rembrandtplein.</p>
+    <hr/>
+    <section class="not-available center well" data-decorator="availability-poller">
+      <p>Momenteel kunt u via deze website geen overlast melden</p>
+      <p><a class="link" href="#wanneer-wel" data-handler="toggle-visibility" data-target="wanneer-wel">Wanneer wel?</a></p>
+      <div id="wanneer-wel" class="extra-info is-hidden center">
+        <p>U kunt via deze website <strong>rechtstreeks</strong> overlast melden aan het handhavingsteam op het Rembrandtplein op:</p>
+        <table>
+          <tbody>
+            <tr><th>do op vr</th><td>van ca. 23:00 - 6:00</td></tr>
+            <tr><th>vr op za</th><td>van ca. 23:00 - 6:00</td></tr>
+            <tr><th>za op zo</th><td>van ca. 23:00 - 6:00</td></tr>
+          </tbody>
+        </table>
+        <p>Wilt u nu toch overlast melden?</p>
+        <p>Bel dan met <a href="tel:14020" class="link">14020</a> (informatienummer van de Gemeente Amsterdam)</p>
+      </div>
+    </section>
+    
+    <p>
+      <a class="button" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Naar de homepage</a>
+    </p>
+  </section>
+
+{% endblock %}

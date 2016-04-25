@@ -1,0 +1,28 @@
+<section class="action-sheet" id="menu">
+  <div class="options" data-decorator="action-sheet">
+    {% if activeDienst %}
+      <h2>Meldkamer staat aan <small>sinds {{ activeDienst.start|localizeddate('none', 'none', 'nl', false, 'EE dd MMM') }} {{ activeDienst.start|localizeddate('none', 'none', 'nl', false, 'HH:mm') }}</small></h2>
+      <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_stopdienst', {'id': activeDienst.id}) }}">
+        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+        <input type="submit" value="Meldkamer uitzetten" class="button warning">
+      </form>
+      {% if activeDienst.handhaver.id != app.user.id %}
+        <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_startdienst') }}">
+          <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+          <input type="hidden" name="handhaver_id" value="{{ app.user.id }}">
+          <input type="submit" class="secondary" value="Dienst overnemen van {{ activeDienst.handhaver.getNaam }}">
+        </form>
+      {% endif %}
+    {% else %}
+      <h2>Meldkamer staat uit</h2>
+      <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_startdienst') }}">
+        <input type="hidden" name="_target_path" value="{{ path(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}" />
+        <input type="hidden" name="handhaver_id" value="{{ app.user.id }}">
+        <input type="submit" value="Meldkamer aanzetten" class="button success">
+      </form>
+    {% endif %}
+    <h2>Ingelogd als {{ app.user.naam }}</h2>
+    <p><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_export') }}" class="button secondary">Maak export</a></p>
+    <p><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_logout') }}" class="button secondary">Uitloggen</a></p>
+  </div>
+</section>

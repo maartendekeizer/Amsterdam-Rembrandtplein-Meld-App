@@ -1,0 +1,347 @@
+form, fieldset {
+  padding: 0;
+  margin: 0;
+  border: none;
+}
+
+form p {
+  margin-bottom: 16px;
+}
+
+legend {
+  margin-bottom: 10px;
+}
+
+input, textarea {
+  -webkit-appearance: none;
+}
+
+input, textarea, button, .button {
+  border: 1px solid $borderColor;
+  background-color: $inputBackgroundColor;
+  padding: 0 10px;
+  margin: 0;
+  width: 100%;
+  min-height: $inputHeight;
+  font-size: $fontSize;
+  line-height: 1.2;
+  border-radius: $borderRadius;
+  box-shadow: none;
+  &:focus {
+    border-color: darken($borderColor, 30);
+    outline: none;
+  }
+  &::-webkit-input-placeholder {
+    color: $placeholderColor;
+    font-style: italic;
+  }
+
+  &:-moz-placeholder {
+    color: $placeholderColor;
+    font-style: italic;
+  }
+
+  &::-moz-placeholder {
+    color: $placeholderColor;
+    font-style: italic;
+  }
+
+  &:-ms-input-placeholder {
+    color: $placeholderColor;
+    font-style: italic;
+  }
+
+  .combined & {
+    width: auto;
+    &:first-child {
+      margin-right: $padding/2;
+    }
+  }
+}
+a.button {
+  display: inline-block;
+  padding: $padding;
+  line-height: 1;
+  text-decoration: none;
+  text-align: center;
+  &:hover {
+    color: #fff;
+  }
+}
+
+textarea {
+  resize: vertical;
+  padding: 10px;
+  display: block;
+}
+
+select {
+  width: 100%;
+  font-size: $fontSize;
+  border: none;
+  border-radius: $borderRadius;
+  background-color: #fff;
+  color: $textColor;
+  border: 1px solid #ccc;
+}
+option {
+  padding: 10px 10px;
+}
+
+input[type="radio"],
+input[type="checkbox"],
+input[type="range"] {
+  padding: 0;
+  min-height: auto;
+  border: none;
+  width: auto;
+}
+
+input[type="image"] {
+  padding: 0;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  &:not(:checked), &:checked {
+    position: absolute;
+    left: -1000px;
+  }
+  & + span {
+    position: relative;
+    display: block;
+    padding-left: 35px;
+    cursor: pointer;
+  }
+  &:not(:checked) + span,
+  &:checked + span {
+    &:before, &:after {
+      content: '';
+      position: absolute;
+      left: 5px;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid $textColor;
+    }
+    &:before {
+      background-color: #fff;
+    }
+    .align-right & {
+      padding-left: 0;
+      padding-right: 35px;
+      &:before, &:after {
+        left: auto;
+        right: 5px;
+      }
+    }
+  }
+  &:not(:checked):focus + span:after,
+  &:checked:focus + span:before {
+    border-color: darken($borderColor, 30);
+  }
+}
+
+
+input[type="radio"] {
+  & + span {
+    &:before, &:after {
+      border-radius: 50%;
+    }
+  }
+  &:checked + span:after {
+    width: 12px;
+    height: 12px;
+    margin: 4px 0 0 4px;
+    background-color: $textColor;
+  }
+}
+
+
+input[type="checkbox"] {
+  &:checked + span:after {
+    border-left: none;
+    border-top: none;
+    border-width: 4px;
+    top: -6px;
+    margin-left: 10px;
+    margin-right: 2px;
+    width: 8px;
+    height: 20px;
+    transform: rotate(45deg);
+  }
+  &.checkbox-right {
+    text-align: right;
+  }
+}
+
+button, .button, [type="submit"], [type="button"], [type="reset"] {
+  cursor: pointer;
+  border-radius: $borderRadius;
+  background-color: $buttonColor;
+  color: #fff;
+  border: 1px solid $buttonColor;
+  padding: 0 10px;
+  min-height: $inputHeight;
+  font-size: inherit;
+  white-space: normal;
+  -webkit-appearance: none;
+  &:visited {
+    color: #fff;
+  }
+  &:active, &:hover, &:focus {
+    color: #fff;
+    border-color: darken($buttonColor, 5);
+    background-color: darken($buttonColor, 5);
+  }
+  &.warning {
+    background-color: #ff6a08;
+    border-color: #ff6a08;
+    &:active, &:hover, &:focus {
+      background-color: darken(#ff6a08, 5);
+      border-color: darken(#ff6a08, 5);
+    }
+  }
+
+  &.success {
+    background-color: #5abd00;
+    border-color: #5abd00;
+    &:active, &:hover, &:focus {
+      background-color: darken(#5abd00, 5);
+      border-color: darken(#5abd00, 5);
+    }
+  }
+  
+  &.secondary {
+    background-color: $buttonSecondaryColor;
+    border-color: $buttonColor;
+    color: $buttonColor;
+    &:active, &:hover, &:focus {
+      color: $buttonColor;
+      border-color: darken($buttonColor, 5);
+    }
+  }
+  
+  &.cancel {
+    background-color: #666;
+    border-color: #666;
+    &:active, &:hover, &:focus {
+      background-color: darken(#666, 5);
+      border-color: darken(#666, 5);
+    }
+  }
+  
+  &.line {
+    background-color: opacify(darken($backgroundColor, 30), .2);
+    color: $textColor;
+    border: 1px solid $borderColor;
+    &:active, &:hover, &:focus {
+      color: darken($textColor, 20);
+    }
+  }
+
+  &.dropdown {
+    background-color: #fff;
+    display: flex;
+    text-align: left;
+    justify-content: space-between;
+    align-items: center;
+  }
+  &.inline {
+    width: auto;
+    padding-left: $padding;
+    padding-right: $padding;
+  }
+}
+.button-link {
+  display: inline-block;
+  min-height: $inputHeight;
+  text-decoration: none;
+  padding-top: 18px;
+  &, &:visited {
+    color: $textColor;
+    text-decoration: underline;
+  }
+  &:hover {
+    color: $textColor;
+  }
+}
+button.button-link {
+  padding: 0;
+  background-color: transparent;
+  width: auto;
+  &:hover {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+
+.list-button {
+  text-align: left;
+  border-radius: 0;
+  border: none;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-height: $inputHeight/3*2;
+  background-color: $buttonListColor;
+  color: $textColor;
+  &:active, &:hover, &:focus, &.active {
+    background-color: darken($buttonListColor, 10);
+    color: $textColor;
+  }
+}
+
+.input-count {
+  position: absolute;
+  right: 10px;
+  bottom: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  strong {
+    display: inline;
+  }
+  & + textarea {
+    padding-bottom: 30px;
+  }
+}
+
+span.combined {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+label {
+  position: relative;
+  display: block;
+  vertical-align: middle;
+  margin-bottom: 16px;
+  strong {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
+    small {
+      font-weight: normal;
+      display: block;
+    }
+    &.light {
+      font-weight: normal;
+    }
+    &.large {
+      font-family: 'Avenir LT W01_85 Heavy1475544', Arial, sans-serif;
+    }
+  }
+  &.error {
+    input, textarea {
+      border-color: #f00;
+    }
+  }
+}
+
+[disabled] {
+  cursor: default;
+  opacity: .6;
+  &:hover {
+    background-color: $buttonColor;
+  }
+}

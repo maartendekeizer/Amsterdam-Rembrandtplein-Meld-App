@@ -1,0 +1,66 @@
+parameters:
+  
+  # Configuration, need to override this in app/config/parameters.yml
+  gams_cookies_token_name: 'GAMS_Rembrandtplein_Token'
+  gams_cookies_token_secure: false
+  gams_cookies_token_expiry: 51840000
+  gams_messagebird_accountkey: ~
+  gams_messagebird_number: ~
+  gams_messagebird_accountkey: ~
+  gams_messagebird_originator: ''
+  gams_messagebird_recipients: []
+  
+services:
+
+  # repositories
+  rembrandtplein.appbundle.repositories.cookietoken:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Entity\CookieTokenRepository'
+    factory: ['@doctrine.orm.entity_manager', 'getRepository']
+    arguments: ['RembrandtPleinAppBundle:CookieToken']
+  rembrandtplein.appbundle.repositories.melding:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Entity\MeldingRepository'
+    factory: ['@doctrine.orm.entity_manager', 'getRepository']
+    arguments: ['RembrandtPleinAppBundle:Melding']
+  rembrandtplein.appbundle.repositories.dienst:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Entity\DienstRepository'
+    factory: ['@doctrine.orm.entity_manager', 'getRepository']
+    arguments: ['RembrandtPleinAppBundle:Dienst']
+  rembrandtplein.appbundle.repositories.handhaver:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Entity\HandhaverRepository'
+    factory: ['@doctrine.orm.entity_manager', 'getRepository']
+    arguments: ['RembrandtPleinAppBundle:Handhaver']
+
+  # utils
+  rembrandtplein.appbundle.utils.secretgenerator:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Utils\SecretGenerator'
+    
+  # services
+  rembrandtplein.appbundle.services.cmsmsgatewaysmsservice:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Service\CmSmsGatewaySmsService'
+    arguments:
+      - '%sms_originator%'
+      - '@monolog.logger.sms_service'
+      - '@templating'
+      - '%sms_disable%'
+      - '%cmsmsgateway_token%'
+  rembrandtplein.appbundle.services.messagebirdsmsservice:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\Service\MessageBirdSmsService'
+    arguments:
+      - '%sms_originator%'
+      - '@monolog.logger.sms_service'
+      - '@templating'
+      - '%sms_disable%'
+      - '@messagebird.client'
+
+  # eventlisteners
+  rembrandtplein.appbundle.eventlisteners.cookie:
+    class: 'GemeenteAmsterdam\RembrandtPlein\AppBundle\EventListener\CookieListener'
+    arguments:
+      - '%gams_cookies_token_name%'
+      - '%gams_cookies_token_expiry%'
+      - '%gams_cookies_token_secure%'
+      - '@rembrandtplein.appbundle.repositories.cookietoken'
+    scope: request
+    tags:
+      - { name: kernel.event_listener, event: kernel.controller, method: onKernelController }
+      - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }

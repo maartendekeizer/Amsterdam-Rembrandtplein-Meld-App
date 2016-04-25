@@ -1,0 +1,61 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Home</a></p>
+    <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <section>
+
+    <h2>Mijn meldingen <small>({{ recenteMeldingen|length }} vanaf dit apparaat, <a href="#hoe-werkt-dit" data-handler="toggle-visibility" data-target="hoe-werkt-dit">lees hoe dit werkt</a>)</small></h2>
+
+    <div class="extra-info is-hidden well" id="hoe-werkt-dit">
+      <h3>Hoe werkt dit?</h3>
+      <p>Aan de hand van een ‘browser cookie’ kunnen wij meldingen die u vanaf dit apparaat heeft gedaan hier tonen.</p>
+      <h3>Kunt u uw meldingen niet meer terugvinden?</h3>
+      <p>Heeft u gemeld vanaf dit apparaat, maar kunt u deze niet meer zien? Dan kan het volgende aan de hand zijn:</p>
+      <ul>
+        <li>u of uw browser heeft cookies verwijderd</li>
+        <li>de privé- of incognitomodus van uw browser staat aan <strong class="is-irrelevant" data-decorator="private-mode-check">(dit is bij u het geval)</strong></li>
+      </ul>
+      <p>De meldingen zijn wél doorgestuurd aan het handhavingsteam.</p>
+    </div>
+
+    {% if totaalAantalMeldingen %}
+      <div data-decorator="refresh-list">
+        {% for melding in recenteMeldingen %}
+          {% include 'RembrandtPleinAppBundle:Melder:_messageItem.html.twig' with {'melding': melding} only %}
+        {% endfor %}
+      </div>
+    {% else %}
+
+      <p>U heeft (nog) geen meldingen gedaan vanaf dit apparaat.</p>
+
+      {% include 'RembrandtPleinAppBundle:Melder:_homepageButton.html.twig' %}
+
+      <nav>
+        <ul>
+          <li><a class="secondary button" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></li>
+        </ul>
+      </nav>
+
+    {% endif %}
+
+  </section>
+
+  <section class="action-sheet" id="menu">
+    <div class="options" data-decorator="action-sheet">
+      <h2>Menu</h2>
+      {% if activeDienst %}
+        <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}">Overlast melden</a></p>
+      {% endif %}
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></p>
+      <p><a class="button secondary active" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen ({{ recenteMeldingen|length }})</a></p>
+    </div>
+  </section>
+
+{% endblock %}

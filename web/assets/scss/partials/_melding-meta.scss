@@ -1,0 +1,63 @@
+.melding-meta {
+  font-size: $fontExtraSmallSize;
+  color: $textLightColor;
+  overflow: hidden;
+  text-align: right;
+  border-bottom: 1px solid $textLightColor;
+  margin: 0 (-$padding/2) $padding (-$padding/2);
+  padding: 0 $padding/2 ($padding/2) $padding/2;
+  .melding-meta-tags {
+    display: inline;
+    dd {
+      margin-right: 0;
+    }
+    dd + dt + dd {
+      margin-left: 10px;
+    }
+  }
+  .wijzig {
+    white-space: nowrap;
+    margin-left: 10px;
+  }
+}
+.melding-meta-tags {
+  margin: 0;
+  font-size: $fontExtraSmallSize;
+  color: $textLightColor;
+  dt, dd {
+    margin: 0;
+    display: inline-block;
+  }
+  dt {
+    display: none;
+    // has tag icon
+    white-space: nowrap;
+    text-indent: 20px;
+    overflow: hidden;
+  }
+  dd {
+    margin-right: 10px;
+  }
+}
+
+.melding-meta-extra {
+//  position: fixed;
+//  z-index: 20;
+//  left: 0;
+//  top: 0;
+//  right: 0;
+//  bottom: 0;
+//  padding: $padding;
+//  background-color: #f9f9f9;
+//  border: $padding solid rgba(0,0,0, .5);
+//  -webkit-overflow-scrolling: touch;
+  &.is-active {
+//    overflow: auto;
+  border-bottom: 1px solid $textColor;
+  margin-bottom: $padding;
+  }
+}
+.melding-meta-none {
+  margin: 0;
+  color: #666;
+}

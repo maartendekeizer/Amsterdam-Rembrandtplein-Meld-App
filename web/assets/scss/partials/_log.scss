@@ -1,0 +1,137 @@
+.log {
+  margin-bottom: $lineHeight;
+}
+
+.log-item {
+  position: relative;
+  border-radius: 10px;
+  padding: $padding / 2;
+  margin-bottom: $padding;
+  background-color: $itemActiveBackgroundColor;
+  border-left: 4px solid $accentColor;
+  .bericht, .buttons {
+    font-size: $fontSize;
+    margin: 0;
+  }
+  .bericht {
+    word-break: break-word;
+  }
+  time {
+    display: block;
+    text-align: right;
+    font-size: 90%;
+    strong {
+      display: inline;
+    }
+  }
+  .icon-handhaver {
+    position: absolute;
+    top: 0;
+    right: -60px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: -16px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 12px 0 0 12px;
+      border-color: transparent transparent transparent #f6f6f6;
+    }
+
+
+    
+  }
+  .icon-melder {
+    position: absolute;
+    top: 0;
+    left: -60px;
+
+    &:before {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      right: -16px;
+      width: 0;
+      height: 0;
+      border-style: solid;
+      border-width: 0 0 12px 12px;
+      border-color: transparent transparent #f6f6f6 transparent;
+    }
+
+  }
+//  &:before {
+//    position: absolute;
+//    content: '';
+//    width: 10px;
+//    height: 10px;
+//    top: 40px;
+//    background: inherit;
+//  }
+  &.afzender-handhaver {
+    margin-right: 60px;
+//    &:before {
+//      right: -10px;
+//      border-radius: 0 0 20px 0;
+//    }
+  }
+  &.afzender-melder {
+    margin-left: 60px;
+    background-color: $itemBackgroundColor;
+    border-right: 4px solid #999;
+    border-left: none;
+//    &:before {
+//      left: -10px;
+//      border-radius: 0 0 0 20px;
+//    }
+  }
+  &.log-item-input {
+    margin-right: 0;
+    margin-left: 0;
+    border: none;
+    &:before {
+      display: none;
+    }
+  }
+  &.afzender-systeem {
+    border-radius: 0;
+    border: none;
+    background-color: transparent;
+    padding: 0;
+    .reactie-meta {
+      color: $textLightColor;
+    }
+  }
+  &.log-item-connected {
+    margin-top: -$padding;
+    border-top: 2px dashed #fff;
+  }
+  &[data-smiley]:before {
+    right: $padding/2;
+  }
+}
+
+.log-item-type {
+  text-transform: uppercase;
+}
+
+.reactie-type-feedbacktoestaan,
+.reactie-type-morastartentoestaan,
+.reactie-type-reactietoestaan {
+  position: absolute;
+  left: -10000px;
+  width: 0;
+}
+
+.has-js .log-read {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity .2s ease-out;
+}
+
+.has-js .log-read.is-visible {
+  opacity: 1;
+  visibility: visible;
+}

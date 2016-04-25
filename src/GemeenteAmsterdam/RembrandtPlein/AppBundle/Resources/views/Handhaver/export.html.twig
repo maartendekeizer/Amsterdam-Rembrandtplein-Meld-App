@@ -1,0 +1,48 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <div class="centered">
+      {% include 'RembrandtPleinAppBundle:Handhaver:_status.html.twig' with {'activeDienst': activeDienst} only %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_index') }}">Alle meldingen</a></p>
+      <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+    </div>
+  </header>
+{% endblock %}
+
+{%- block js -%}
+  <script src="{{ asset('/assets/js/lib/rome.min.js') }}"></script>
+{%- endblock -%}
+
+{% block body %}
+
+  <form method="post">
+    {% if form.submitted == true %}
+      <em class="small error">Er ging iets verkeerd; probeer het opnieuw</em>
+      <ul class="small error">
+        {% for error in form.errors  %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      </ul>
+      <p class="error small">Let op: datums moeten ingevuld woren als <em>jjjj-mm-dd</em> en tijden als <em>hh:mm:ss</em>.</p>
+    {% endif %}
+    <label>
+      <strong>Begindatum &amp; -tijd</strong>
+      <span class="combined">
+        <input type="date" name="startdate" placeholder="jjjj-mm-dd" value="{{ form.data.startdate }}" data-decorator="date-picker">
+        <input type="time" name="starttime" placeholder="hh:mm:ss" value="{{ form.data.starttime }}" data-decorator="time-picker">
+      </span>
+    </label>
+    <label>
+      <strong>Einddatum &amp; -tijd</strong>
+      <span class="combined">
+        <input type="date" name="enddate" placeholder="jjjj-mm-dd" value="{{ form.data.enddate }}" data-decorator="date-picker">
+        <input type="time" name="endtime" placeholder="hh:mm:ss" value="{{ form.data.endtime }}" data-decorator="time-picker">
+      </span>
+    </label>
+    <button type="submit" class="button">Exporteer <i class="icon-chevron"></i></button>
+  </form>
+
+  {% include 'RembrandtPleinAppBundle:Handhaver:_actions.html.twig' with {'activeDienst': activeDienst} only %}
+
+{% endblock %}

@@ -1,0 +1,56 @@
+.icon-melder,
+.icon-handhaver {
+  display: inline-block;
+  height: 0;
+  width: $unit;
+  padding-top: $unit;
+  background: #fff no-repeat 50% 50%;
+  background-size: cover;
+  border-radius: 50%;
+  white-space: nowrap;
+  text-align: center;
+  font-style: normal;
+  font-size: 10px;
+  line-height: 16px;
+  white-space: normal;
+}
+.icon-melder {
+  background-image: url(/assets/img/neutraal-melder.png?v2);
+}
+.icon-arrow-down {
+  display: inline-block;
+  vertical-align: middle;
+  width: 0; 
+  height: 0; 
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid $textColor;
+}
+.icon-tag {
+  display: inline-block;
+  vertical-align: middle;
+  width: 14px;
+  height: 14px;
+  background-image: url('../img/ico_tag.png?v2');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+
+.icon-reacties {
+  display: inline-block;
+  vertical-align: middle;
+  width: 18px;
+  height: 14px;
+  background-image: url('../img/ico_comment.png?v2');
+  background-size: 100% auto;
+  background-repeat: no-repeat;
+}
+.icon-chevron {
+  border-left: 4px solid #fff;
+  border-top: 4px solid #fff;
+  display: inline-block;
+  height: 12px;
+  width: 12px;
+  transform: rotate(135deg);
+
+}

@@ -1,0 +1,54 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Home</a></p>
+    <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+  </header>
+{% endblock %}
+
+
+{% block body %}
+
+  <section class="message-input">
+    <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}" data-decorator="message-submit">
+      {% if form.submitted == true and form.errors|length > 0%}
+        <em class="small error">Er ging iets verkeerd; probeer het opnieuw</em>
+        <ul class="small error">
+          {% for violation in form.errors %}
+            <li>{{ violation.message }}</li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+      <label{% if form.submitted == true and form.errors|length > 0 %} class="error"{% endif %}>
+        <strong class="large">Beschrijf de overlast <small>en de locatie van de oorzaak</small></strong>
+        <span id="message-input-max" class="small light input-count">maximaal <strong>300</strong> tekens</span>
+        <textarea name="bericht" rows="5" cols="60" required minlength="10" maxlength="300" placeholder="Bijv. Mensen maken veel lawaai in de Schapensteeg." data-decorator="message-input-counter" data-output="message-input-max">{{ form.data.bericht }}</textarea>
+      </label>
+      <div class="irrelevant-with-js">
+        <p>Beantwoord de volgende vraag om aan te tonen dat u een mens bent en géén spam-robot</p>
+        <p><b>Vraag:</b> Wat is de kleur van het logo van Amsterdam?</p>
+        <label>
+          <strong><b>Uw antwoord:</b></strong>
+          <input type="text" name="email" value="{{ form.data.captcha }}" data-decorator="captcha">
+        </label>
+      </div>
+      <p class="left light small">meldingen zijn alleen zichtbaar voor team Rembrandtplein</p>
+      <p class="buttons">
+        <button type="submit" class="button">Stuur naar team&nbsp;Rembrandtplein <i class="icon-chevron"></i></button>
+      </p>
+    </form>
+  </section>
+
+  <section class="action-sheet" id="menu">
+    <div class="options" data-decorator="action-sheet">
+      <h2>Menu</h2>
+      {% if activeDienst %}
+        <p><a class="button secondary active" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}">Overlast melden</a></p>
+      {% endif %}
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></p>
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen</a></p>
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="nl" data-decorator="add-handlers track-visibility">
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Meld Overlast Rembrandtplein!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="{{ asset('/assets/css/styles.css') }}">
+    <link href="//fast.fonts.net/cssapi/7cd4c080-5246-49b1-8f48-530e9d1829a6.css" rel="stylesheet">
+    <script>document.documentElement.className='has-js'</script>
+    <meta name="format-detection" content="telephone=no">
+    <link rel="apple-touch-icon" sizes="57x57" href="/assets/favicon/apple-icon-57x57.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="60x60" href="/assets/favicon/apple-icon-60x60.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="72x72" href="/assets/favicon/apple-icon-72x72.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/favicon/apple-icon-76x76.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="114x114" href="/assets/favicon/apple-icon-114x114.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="120x120" href="/assets/favicon/apple-icon-120x120.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="144x144" href="/assets/favicon/apple-icon-144x144.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="152x152" href="/assets/favicon/apple-icon-152x152.png?v=20160211">
+    <link rel="apple-touch-icon" sizes="180x180" href="/assets/favicon/apple-icon-180x180.png?v=20160211">
+    <link rel="icon" type="image/png" sizes="192x192" href="/assets/favicon/android-icon-192x192.png?v=20160211">
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon/favicon-32x32.png?v=20160211">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/favicon/favicon-96x96.png?v=20160211">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon/favicon-16x16.png?v=20160211">
+    <link rel="manifest" href="/assets/favicon/manifest.json?v=20160211">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="/assets/favicon/ms-icon-144x144.png?v=20160211">
+    <meta name="theme-color" content="#ffffff">
+  </head>
+  <body class="page-{{ app.request.pathInfo|split('/')[1] }}">
+    {% block header %}
+      <header class="header">
+        <h1>Meld Overlast Rembrandtplein</h1>
+        {% block actions %}{% endblock %}
+      </header>
+    {% endblock %}
+    {% block body %}{% endblock %}
+    <footer class="refresh-content is-hidden" id="refresh-content">
+      <h2>Er is een nieuw bericht</h2>
+      <button data-handler="show-new-content">Bekijken</button>
+    </footer>
+    {% block js %}{% endblock %}
+    <script src="{{ asset('/assets/js/main.js') }}" id="main-script" data-streets="{{ asset('/data/streets.json') }}"></script>
+    <script>if (typeof(rbp) == 'undefined') { document.documentElement.className = ''; }</script>
+  </body>
+</html>

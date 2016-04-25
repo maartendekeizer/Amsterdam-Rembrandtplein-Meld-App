@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <h1>Inloggen</h1>
+    {% include 'RembrandtPleinAppBundle:Handhaver:_status.html.twig' with {'activeDienst': activeDienst} only %}
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <form action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_logincheck') }}" method="post">
+
+    <label>Handhaver
+      <select name="_username">
+        <option>Selecteer je naam</option>
+        {% for handhaver in handhavers %}
+          <option value="{{ handhaver.username }}"{% if last_username == handhaver.username %} selected{% endif %}>{{ handhaver.naam }}</option>
+        {% endfor %}
+      </select>
+    </label>
+
+    <label>Wachtwoord
+      <input type="password" id="password" name="_password">
+    </label>
+
+    {% if error %}
+      <p><em class="small error">{{ error.messageKey|trans(error.messageData, 'security') }}</em></p>
+    {% endif %}
+
+    {#
+        If you want to control the URL the user
+        is redirected to on success (more details below)
+        <input type="hidden" name="_target_path" value="/account" />
+    #}
+
+    <input type="submit" value="Inloggen">
+  </form>
+
+{% endblock %}

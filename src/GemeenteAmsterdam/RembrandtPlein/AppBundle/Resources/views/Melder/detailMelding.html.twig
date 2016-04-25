@@ -1,0 +1,87 @@
+{%- import 'RembrandtPleinAppBundle:macros:timestamp.html.twig' as time -%}
+
+{% extends "base.html.twig" %}
+
+{% set firstReactie = melding.getFirstReactie %}
+
+{% block title %}{{ melding.getFirstReactie.bericht|truncate(20, true, '…') }}{% endblock %}
+
+{% block header %}
+  <header class="header">
+    {% if app.request.headers.get('referer') == url('gemeenteamsterdam_rembrandtplein_app_melder_overview') %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen</a></p>
+    {% else %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Home</a></p>
+    {% endif %}
+    <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <section class="log" data-decorator="refresh-partial">
+
+    <div class="log-item small afzender-melder{% if melding.reacties|length == 1 %} log-read" data-decorator="log-read-notification{% endif %}">
+      <strong class="log-item-type">Mijn melding</strong> <span class="reactie-door"> aan team Rembrandtplein <i class="icon-melder">Ik</i></span>
+      <p class="bericht" id="message">{{ firstReactie.bericht|replace({'/': '​/​'})|nl2br }}</p>
+      {{ time.stamp(firstReactie.aanmaakDatumtijd, true) }}
+    </div>
+
+    {%- for reactie in melding.reacties -%}
+      {%- include 'RembrandtPleinAppBundle:Melder:_logItem.html.twig' with {'melding': melding, 'reactie': reactie, 'loop': loop, 'parentView': 'melder', 'partial': false, 'activateSmsForm': activateSmsForm, 'melderIsSame': melderIsSame} only -%}
+    {%- endfor -%}
+
+    {%- if melding.reactieVanMelderToestaan -%}
+      <div class="log-item afzender-melder log-item-input">
+        <div class="message-input">
+          <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_addreactie', {'meldingUuid': melding.uuid, 'secret': melding.secret}) }}#reactie-{{ melding.reacties|last.id }}" data-decorator="message-submit">
+            {% if berichtForm.errors|length > 0 %}
+              <ul class="small error">
+                {% for error in berichtForm.errors %}
+                  <li>{{ error.message }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+            <label>
+              <span id="message-meer-informatie-max" class="small light input-count">maximaal <strong>150</strong> tekens</span>
+              <textarea id="message-meer-informatie" name="bericht" maxlength="150" data-decorator="message-input-counter" data-output="message-meer-informatie-max" placeholder="Typ uw tekst…">{{ berictForm.data.bericht|default('') }}</textarea>
+              <input type="hidden" name="t0" value="{{ berichtForm.data.t0 }}">
+              <input type="hidden" name="t1" value="{{ berichtForm.data.t1 }}">
+            </label>
+            {% if not activeDienst %}
+              <p class="small"><b>Let op:</b> op dit moment heeft team Rembrandtplein geen <a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}" class="link">dienst</a>. U kunt wel reageren, maar mogelijk wordt uw bericht niet gelezen.</p>
+            {% endif %}
+            <p class="buttons">
+              <button class="button" type="submit">Versturen <i class="icon-chevron"></i></button>
+            </p>
+          </form>
+        </div>
+      </div>
+    {%- elseif melding.reacties|length != 1 -%}
+      <div class="log-item afzender-systeem">
+        {% if melding.aantalBerichtReacties < 2 %}
+          <div class="reactie-meta">
+            <p class="bericht">Wij houden u vannacht via deze pagina op de hoogte</p>
+          </div>
+        {% endif %}
+        {% include 'RembrandtPleinAppBundle:Melder:_sms.html.twig' with {'melding': melding, 'activateSmsForm': activateSmsForm, 'melderIsSame': melderIsSame} only %}
+      </div>
+    {%- endif -%}
+  </section>
+
+  <section class="action-sheet" id="menu">
+    <div class="options" data-decorator="action-sheet">
+      <h2>Menu</h2>
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}">Overlast melden</a></p>
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></p>
+      <p><a class="button secondary active" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen</a></p>
+      {% if melding.melderNotificaties %}
+        <h2>Acties</h2>
+        <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_deactivatesms', {'meldingUuid': melding.uuid, 'secret': melding.secret}) }}">
+          <input type="submit" value="Stop SMS voor deze melding">
+        </form>
+      {% endif %}
+    </div>
+  </section>
+
+{% endblock %}

@@ -1,0 +1,3 @@
+      {% for reactie in reacties %}
+        {% include 'RembrandtPleinAppBundle:Melder:_logItem.html.twig' with {'melding': melding, 'reactie': reactie, 'loop': loop, 'parentView': 'melder', 'partial': true, 'form': form, 'errors': errors} only %}
+      {% endfor %}

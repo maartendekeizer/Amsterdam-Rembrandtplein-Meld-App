@@ -1,0 +1,5 @@
+{% if app.request.query.has('since') == false or recenteMeldingen|first.getGewijzigdDatumtijd()|date('U') > app.request.query.getInt('since') %}
+  {% for melding in recenteMeldingen %}
+    {% include 'RembrandtPleinAppBundle:Melder:_messageItem.html.twig' with {'melding': melding} only %}
+  {% endfor %}
+{% endif %}

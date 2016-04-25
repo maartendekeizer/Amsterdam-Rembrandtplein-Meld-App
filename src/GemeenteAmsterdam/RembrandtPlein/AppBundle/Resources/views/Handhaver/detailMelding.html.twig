@@ -1,0 +1,143 @@
+{%- import 'RembrandtPleinAppBundle:macros:timestamp.html.twig' as time -%}
+
+{% extends "base.html.twig" %}
+
+{% set firstReactie = melding.getFirstReactie %}
+
+{% block title %}{{ melding.getFirstReactie.bericht|truncate(20, true, '…') }}{% endblock %}
+
+{% block header %}
+  <header class="header">
+    <div class="centered">
+      {% include 'RembrandtPleinAppBundle:Handhaver:_status.html.twig' with {'activeDienst': activeDienst} only %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_index') }}">Alle meldingen</a></p>
+      <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+    </div>
+  </header>
+{% endblock %}
+
+{%- block js -%}
+  <script src="{{ asset('/assets/js/lib/horsey.min.js') }}"></script>
+{%- endblock -%}
+
+{% block body %}
+
+  <div class="melding-meta">
+    {% if metaForm.data|join|length > 0 %}
+      <dl class="melding-meta-tags">
+        {% if metaForm.data.categorie %}
+          <dt>Categorie</dt>
+          <dd><i class="icon-tag"></i> {{ metaForm.data.categorie }}</dd>
+        {% endif %}
+        {% if metaForm.data.locatie %}
+          <dt>Locatie</dt>
+          <dd><i class="icon-tag"></i> {{ metaForm.data.locatie }}</dd>
+        {% endif %}
+        {% if metaForm.data.adres %}
+          <dt>Adres</dt>
+          <dd><i class="icon-tag"></i> {{ metaForm.data.adres }}</dd>
+        {% endif %}
+      </dl>
+      <a data-handler="toggle-visibility" data-target="melding-meta-extra" href="#melding-meta-extra" class="wijzig">wijzig extra info</a>
+    {% else %}
+      <p class="melding-meta-none">Nog geen extra info, <a data-handler="toggle-visibility" data-target="melding-meta-extra" href="#melding-meta-extra" class="wijzig">voeg extra info toe</a></p>
+    {% endif %}
+  </div>  
+
+  <div class="melding-meta-extra is-hidden" id="melding-meta-extra">
+    <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_setmetadata', {'meldingUuid': melding.uuid}) }}">
+      <fieldset>
+        <label>
+          <strong>Categorie</strong>
+          <select name="categorie">
+            <option value="">-kies categorie-</option>
+            <option{% if metaForm.data.categorie == 'Horeca overlast' %} selected="selected"{% endif %}>Horeca overlast</option>
+            <option{% if metaForm.data.categorie == 'Taxi' %} selected="selected"{% endif %}>Taxi</option>
+            <option{% if metaForm.data.categorie == 'Algemene overlast' %} selected="selected"{% endif %}>Algemene overlast</option>
+            <option{% if metaForm.data.categorie == 'Alcohol' %} selected="selected"{% endif %}>Alcohol</option>
+            <option{% if metaForm.data.categorie == 'Verkeer-hinder wegsleep' %} selected="selected"{% endif %}>Verkeer-hinder wegsleep</option>
+            <option{% if metaForm.data.categorie == 'Drugs' %} selected="selected"{% endif %}>Drugs</option>
+            <option{% if metaForm.data.categorie == 'Jeugd' %} selected="selected"{% endif %}>Jeugd</option>
+            <option{% if metaForm.data.categorie == 'Milieu' %} selected="selected"{% endif %}>Milieu</option>
+            <option{% if metaForm.data.categorie == 'Tests' %} selected="selected"{% endif %}>Tests</option>
+          </select>
+        </label>
+        <label>
+          <strong>Overlastveroorzaker</strong>
+          <input name="locatie" type="text" value="{{ metaForm.data.locatie }}">
+        </label>
+        <label>
+          <strong>Adres overlastveroorzaker</strong>
+          <input name="adres" type="text" value="{{ metaForm.data.adres }}" data-decorator="coords-input" data-output="coords" data-map="map-coords">
+        </label>
+        <label>
+          <strong>Verfijn eventueel de coördinaten</strong>
+          <span class="map-coords needs-js">
+            <input data-lat-start="52.367206" data-lon-start="4.893018" data-lat-end="52.364593" data-lon-end="4.900887" data-output="coords" src="{{ asset('/assets/img/rembrandtplein.jpg') }}" width="2245" height="1234" id="map-coords" type="image" data-pointer="coords-pointer" data-handler="map-coords" data-decorator="map-coords-keyboard">
+            <span class="pointer" id="coords-pointer"></span>
+          </span>
+          <input name="coordinaten" type="text" value="{{ metaForm.data.coordinaten }}" id="coords" class="irrelevant-with-js">
+        </label>
+      </fieldset>
+      <p class="buttons">
+        <button type="submit" class="button inline right">Opslaan</button>
+        <a data-handler="toggle-visibility" data-target="melding-meta-extra" href="#melding-meta-extra" class="button-link left'">Annuleren</a>
+      </p>
+    </form>
+  </div>
+
+  <section class="log" data-decorator="refresh-partial">
+
+    <div class="log-item small afzender-melder">
+      <i class="icon-melder">Melder</i>
+      <p class="bericht" id="message">{{ firstReactie.bericht|replace({'/': '​/​'})|nl2br }}</p>
+      {{ time.stamp(firstReactie.aanmaakDatumtijd, true) }}
+    </div>
+
+    {%- for reactie in melding.reacties -%}
+      {%- include 'RembrandtPleinAppBundle:Handhaver:_logItem.html.twig' with {'melding': melding, 'reactie': reactie, 'loop': loop, 'parentView': 'handhaver', 'partial': false} only -%}
+    {%- endfor -%}
+
+    <div class="log-item afzender-handhaver log-item-input">
+      <div class="message-input" id="reageer">
+        <form method="post" action="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_addreactie', {'meldingUuid': melding.uuid}) }}#reactie-{{ melding.reacties|last.id }}" data-decorator="message-submit">
+          <p class="needs-js">
+            <a href="#selecteer-tekst" class="button line dropdown" data-handler="toggle-action-sheet" data-sheet="selecteer-tekst">Kies standaardtekst <i class="icon-arrow-down"></i></a>
+          </p>
+          <p>
+            <textarea id="bericht" name="bericht" rows="5" cols="60" placeholder="Of schrijf zelf een bericht…">{{ reactieForm.data.bericht }}</textarea>
+          </p>
+          <p>
+            <label>
+              <input type="checkbox" name="actie" value="reactie-toestaan" {{ reactieForm.data.actie == 'reactie-toestaan' ? ' checked' }}>
+              <span>Melder kan reageren</span>
+            </label>
+          </p>
+          <p class="buttons">
+            <button type="submit" class="button">Versturen naar melder <i class="icon-chevron"></i></button>
+          </p>
+        </form>
+      </div>
+    </div>
+
+  </section>
+
+  {% include 'RembrandtPleinAppBundle:Handhaver:_actions.html.twig' with {'activeDienst': activeDienst} only %}
+
+  <section class="action-sheet needs-js" id="selecteer-tekst">
+    <div class="options" data-decorator="action-sheet">
+      <h2>Kies een tekst</h2>
+      <ul>
+        <li><button data-handler="prefill-text" type="button" class="list-button">We gaan er heen</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button">We zijn op de locatie</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button" value="We zijn bezig met een andere melding, we proberen zo spoedig mogelijk op uw melding te reageren">We zijn bezig met een andere melding…</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button">De overlastveroorzaker is aangesproken</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button">De overlast is verholpen</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button" value="Geen overlast aangetroffen op de door u opgegeven locatie">Geen overlast aangetroffen…</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button" value="We hebben meer informatie nodig om de overlast aan te pakken, namelijk: ">We hebben meer informatie nodig…</button></li>
+        <li><button data-handler="prefill-text" type="button" class="list-button" value="We geven de melding door aan ">We geven de melding door aan…</button></li>
+      </ul>
+    </div>
+  </section>
+
+{% endblock %}

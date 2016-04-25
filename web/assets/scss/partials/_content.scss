@@ -1,0 +1,19 @@
+hr {
+  margin: $lineHeight 0;
+  background-color: #ddd;
+  height: 1px;
+  border: none;
+}
+
+.meta {
+  color: $textLightColor;
+  font-size: $fontSmallSize;
+  margin-bottom: 0;
+}
+
+ul, ol {
+  padding-left: 2em;
+}
+ul {
+  list-style-type: square;
+}

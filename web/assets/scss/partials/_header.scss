@@ -1,0 +1,109 @@
+.header {
+  position: fixed;
+  z-index: 1;
+  width: 100%;
+  max-width: $bodyWidth;
+  top: $padding;
+  margin: (-$padding) (-$padding/2);
+  padding: $padding ($padding/2);
+  background: #333;
+  color: #fff;
+  line-height: 1;
+  font-family: 'Avenir LT W01_85 Heavy1475544', Arial, sans-serif;
+  .page-handhaver & {
+    margin-top: 0;
+    background: #333;
+  }
+  
+  h1 {
+    font-size: 1em;
+    line-height: 1;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+    line-height: $lineHeight;
+  }
+  p {
+    margin: 0;
+    line-height: $lineHeight;
+  }
+  a {
+    display: block;
+    color: #fff;
+    text-decoration: none;
+    padding: $padding ($padding/2);
+    &:hover, &:focus {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+  .status {
+    position: absolute;
+    top: -$padding;
+    right: 0;
+    left: 0;
+    padding-left: $padding/2;
+    padding-right: $padding/2;
+    font-size: 13px;
+    background-color: #ff6a08;
+    line-height: $padding;
+    text-align: center;
+    span {
+      margin: 0 .2em;
+      &:first-child {
+        margin-left: 0;
+      }
+      &:last-child {
+        margin-right: 0;
+      }
+      span {
+        margin: 0;
+        font-size: 90%;
+        color: rgba(255,255,255,.7);
+      }
+    }
+    &.status-active {
+      background: #5abd00;
+    }
+  }
+  .back {
+    margin: -$padding 0;
+    a {
+      display: inline-block;
+      &:before {
+        content: '';
+        display: inline-block;
+        margin-top: 4px;
+        vertical-align: top;
+        width: 10px;
+        height: 10px;
+        margin-right: 10px;
+        border-left: 4px solid #fff;
+        border-top: 4px solid #fff;
+        transform: rotate(-45deg);
+      }
+    }
+    span {
+      border: 1px solid #fff;
+      border-radius: 5px;
+      padding: .3em;
+    }
+  }
+  .actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    a:after {
+      content: '…';
+      display: inline-block;
+      margin-left: -.2em;
+      font-weight: bold;
+      font-size: 1.8em;
+      vertical-align: middle;
+      transform: rotate(-90deg);
+      text-decoration: none;
+    }
+  }
+}
+
+

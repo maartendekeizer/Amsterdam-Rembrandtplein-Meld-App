@@ -1,0 +1,76 @@
+body, input, textarea, select, button {
+  font-family: Verdana, sans-serif;
+  font-size: $fontSize;
+}
+body {
+  font-size: $fontSize;
+  line-height: $lineHeight;
+  color: $textColor;
+  text-size-adjust: none;
+}
+
+a {
+  color: $textColor;
+}
+a:visited {
+  color: lighten($textColor, 10);
+}
+a:hover,
+a:focus {
+  color: darken($textColor, 10);
+}
+
+.link,
+a.link:hover,
+a.link:focus,
+a.link:visited {
+  color: $accentColor;
+}
+
+
+.light {
+  color: $textLightColor; 
+}
+
+.extra-large {
+  font-size: $fontExtraLargeSize;
+}
+.large {
+  font-size: $fontLargeSize;
+}
+.normal {
+  font-size: $fontSize;
+}
+.small {
+  font-size: $fontSmallSize;
+}
+.extra-small {
+  font-size: $fontExtraSmallSize;
+}
+
+.error {
+  color: #f00;
+}
+h1 {
+  font-weight: normal;
+}
+h1 {
+  font-size: 2em;
+  line-height: 1.2;
+  margin-bottom: $lineHeight/2;
+}
+h2 {
+  font-family: 'Avenir LT W01_85 Heavy1475544', Arial, sans-serif;
+  font-size: $fontLargeSize;
+  line-height: 1.2;
+  margin-bottom: $lineHeight/2;
+  overflow: hidden;
+  small {
+    font-weight: normal;
+  }
+}
+h3 {
+  font-size: 1em;
+  line-height: 1.2;
+  margin-bottom: $lineHeight/2;
+}

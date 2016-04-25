@@ -1,0 +1,17 @@
+
+parameters:
+
+services:
+    twig.extenstion.intl:
+        class: 'Twig_Extensions_Extension_Intl'
+        tags:
+            - { name: 'twig.extension' }
+    twig.extension.text:
+        class: 'Twig_Extensions_Extension_Text'
+        tags:
+            - { name: 'twig.extension' }
+            
+    messagebird.client:
+        class: 'MessageBird\Client'
+        arguments:
+            - '%messagebird_accountkey%'

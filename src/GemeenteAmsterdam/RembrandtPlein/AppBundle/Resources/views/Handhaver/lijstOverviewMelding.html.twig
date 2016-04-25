@@ -1,0 +1,10 @@
+{% set laatsteDatum = false %}
+{% if app.request.query.has('since') == false or meldingen|first.getGewijzigdDatumtijd()|date('U') > app.request.query.getInt('since') %}
+  {% for melding in meldingen %}
+    {% if laatsteDatum and laatsteDatum != melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('dmY') %}
+      <h3 class="message-divider"><span>week {{ melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('W, Y') }}</span></h3>
+    {% endif %}
+    {% set laatsteDatum = melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('dmY') %}
+    {% include 'RembrandtPleinAppBundle:Handhaver:_messageItem.html.twig' with {'melding': melding} only %}
+  {% endfor %}
+{% endif %}

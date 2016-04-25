@@ -1,0 +1,3 @@
+      {% for reactie in reacties %}
+        {% include 'RembrandtPleinAppBundle:Handhaver:_logItem.html.twig' with {'melding': melding, 'reactie': reactie, 'loop': loop, 'parentView': 'handhaver', 'partial': true} only %}
+      {% endfor %}

@@ -1,0 +1,27 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    {% if app.request.pathInfo|split('/')[1] == 'handhaver' %}
+      {% include 'RembrandtPleinAppBundle:Handhaver:_status.html.twig' with {'activeDienst': activeDienst} only %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_index') }}">Meldkamer</a></p>
+    {% else %}
+      <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Meld overlast Rembrandtplein</a></p>
+    {% endif %}
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <section>
+    <h1>Er ging iets verkeerd</h1>
+    <p>De server stuurde een “{{ status_code }} {{ status_text }}” code.</p>
+    <p>We gaan dit zo snel mogelijk oplossen.</p>
+    {% if app.request.pathInfo|split('/')[1] == 'handhaver' %}
+      <p>Ga voor nu naar de <a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_index') }}">homepage</a>.</p>
+    {% else %}
+      <p>Ga voor nu naar de <a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">homepage</a>.</p>
+    {% endif %}
+  </section>
+
+{% endblock %}

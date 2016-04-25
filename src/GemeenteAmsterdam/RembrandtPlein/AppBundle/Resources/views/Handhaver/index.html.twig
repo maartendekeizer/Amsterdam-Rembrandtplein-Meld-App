@@ -1,0 +1,49 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <div class="centered">
+      <h1>Meldingen</h1>
+      {% include 'RembrandtPleinAppBundle:Handhaver:_status.html.twig' with {'activeDienst': activeDienst} only %}
+      <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+    </div>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  {% if meldingen|length > 0 %}
+
+    <section>
+      <h2>Alle meldingen</h2>
+      <div data-decorator="refresh-list" data-since="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_lijstoverviewmelding', {'since': firstMelding.getGewijzigdDatumtijd()|date('U')}) }}">
+        {% set laatsteDatum = false %}
+        {% for melding in meldingen %}
+          {% if laatsteDatum and laatsteDatum != melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('dmY') %}
+            <h3 class="message-divider"><span>week {{ melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('W, Y') }}</span></h3>
+          {% endif %}
+          {% set laatsteDatum = melding.gewijzigdDatumtijd|date_modify('last tuesday')|date('dmY') %}
+          {% include 'RembrandtPleinAppBundle:Handhaver:_messageItem.html.twig' with {'melding': melding} only %}
+        {% endfor %}
+      </div>
+    </section>
+
+    <section class="pager">
+      <p>
+        {% for i in 0..(pageCount - 1) %}
+          <a href="{{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_index', {'pageNumber': i}) }}"{% if i == pageNumber %} class="current"{% endif %}>{{ i + 1 }}</a>
+        {% endfor %}
+      </p>
+    </section>
+
+  {% else %}
+
+    <section>
+      <h2>Er zijn nog geen meldingen gemaakt</h2>
+    </section>
+
+  {% endif %}
+
+  {% include 'RembrandtPleinAppBundle:Handhaver:_actions.html.twig' with {'activeDienst': activeDienst} only %}
+
+{% endblock %}

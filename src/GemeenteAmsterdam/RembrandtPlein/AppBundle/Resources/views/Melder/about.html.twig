@@ -1,0 +1,60 @@
+{% extends "base.html.twig" %}
+
+{% block header %}
+  <header class="header">
+    <p class="back"><a href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_index') }}">Home</a></p>
+    <p class="actions"><a href="#menu" data-handler="toggle-action-sheet" data-sheet="menu">Menu</a></p>
+  </header>
+{% endblock %}
+
+{% block body %}
+
+  <section id="hoe-werkt-het">
+    <h2>Hoe werkt het?</h2>
+    <p>Het is ’s avonds en ’s nachts vaak druk op en om het Rembrandtplein. Dat is gezellig, maar levert ook overlast op voor bewoners.</p>
+    <p>U kunt via deze website rechtstreeks overlast melden op de drukste uitgaansavonden. Uw melding komt dan terecht bij het handhavingsteam op het Rembrandtplein.</p>
+    <h3>Wanneer kunt u overlast melden?</h3>
+    <table>
+      <tbody>
+        <tr><th>do op vr</th><td>van ca. 23:00 - 6:00</td></tr>
+        <tr><th>vr op za</th><td>van ca. 23:00 - 6:00</td></tr>
+        <tr><th>za op zo</th><td>van ca. 23:00 - 6:00</td></tr>
+      </tbody>
+    </table>
+    <h3>Wie pakt uw melding op?</h3>
+    <p>Het handhavingsteam op het Rembrandtplein pakt uw melding zo snel mogelijk op. Ze zijn met ca. 5 man op en om het plein en kunnen overlastveroorzakers aanspreken en eventueel bekeuren.</p>
+    <p><img src="{{ asset('/assets/img/handhaving-jas-grijs.jpg') }}" alt="De handhavers zijn te herkennen aan hun blauwe jas met zwart-wit geblokt patroon en het woord “Handhaving” in hoofdletters op de rug." width="1320" height="591"></p>
+    <h3>Wat kunt u melden?</h3>
+    <ul>
+      <li>Mensen die lawaai veroorzaken</li>
+      <li>Mensen die wildplassen of rommel achterlaten</li>
+      <li>Mensen die alcohol drinken op straat</li>
+      <li>Fietsers</li>
+      <li>Foutparkeerders</li>
+      <li>Horeca overlast</li>
+    </ul>
+    <h3>Hoe kunt u melden?</h3>
+    <ol>
+      <li>Beschrijf kort de overlast en op welke locatie u die ervaart.</li>
+      <li>Verstuur de melding (deze is alleen zichtbaar voor het handhavingsteam)</li>
+      <li>Uw melding komt direct aan bij de teamcoördinator</li>
+      <li>Het team gaat zo snel mogelijk op de overlast af</li>
+      <li>We houden u via deze website (of als u wenst via SMS) dezelfde avond/nacht op de hoogte van het resultaat</li>
+    </ol>
+  </section>
+
+  {% include 'RembrandtPleinAppBundle:Melder:_homepageButton.html.twig' %}
+
+  <section class="action-sheet" id="menu">
+    <div class="options" data-decorator="action-sheet">
+      <h2>Menu</h2>
+      {% if activeDienst %}
+        <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}">Overlast melden</a></p>
+      {% endif %}
+      <p><a class="button secondary active" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></p>
+      <p><a class="button secondary" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen</a></p>
+    </div>
+  </section>
+
+
+{% endblock %}

@@ -1,0 +1,1 @@
+<p class="status{% if activeDienst %} status-active{% endif %}"><span>{% if activeDienst %}<span>Meldkamer:</span> AAN{% else %}<span>Meldkamer:</span> UIT{% endif %}</span>{% if app.user and activeDienst %} <span><span>Dienst:</span> {{ activeDienst.handhaver.getNaam }}</span>{% endif %}{% if app.user %} <span><span>Ingelogd:</span> {{ app.user.naam }}</span>{% endif %}</p>

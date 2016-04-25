@@ -1,0 +1,45 @@
+$bodyWidth: 420px;
+//$bodyWidth: 320px;
+
+// type
+$fontSize: 18px;
+$fontLargeSize: 22px;
+$fontExtraSmallSize: 12px;
+$fontExtraLargeSize: 24px;
+$fontSmallSize: 14px;
+$lineHeight: 24px;
+$padding: 20px;
+$unit: 44px;
+
+// breakpoints
+$large: 1000px;
+$medium: 900px;
+$small: 680px;
+
+// colors
+$baseColor: #00A4E8;
+
+$backgroundColor: #fff;
+$canvasBackgroundColor: #E5E5E5;
+
+$textColor: #000;
+$textLightColor: lighten($textColor, 20);
+
+$placeholderColor: #777;
+
+$inputBackgroundColor: #fff;
+$buttonColor: #ff0000;
+$buttonSecondaryColor: #fff;
+$buttonListColor: #f6f6f6;
+
+$headerBackgroundColor: darken($buttonColor, 10);
+
+$borderColor: #ccc;
+$accentColor: red;
+
+$itemBackgroundColor: #f6f6f6;
+$itemActiveBackgroundColor: #f6f6f6;
+
+// inputs
+$inputHeight: 60px;
+$borderRadius: 5px;

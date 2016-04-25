@@ -1,0 +1,234 @@
+.message {
+  position: relative;
+  margin: 0 (-$padding/2) 0 (-$padding/2);
+  padding: $padding $padding/2;
+  border-top: 1px solid $canvasBackgroundColor;
+  h3 {
+    margin: 0;
+    color: #000;
+  }
+  p {
+    margin-bottom: 0;
+  }
+}
+.message-link {
+  display: block;
+  text-decoration: none;
+}
+
+.message-is-new {
+  animation: is-new .2s ease-out;
+}
+
+.refresh {
+  a {
+    display: block;
+    font-weight: bold;
+  }
+}
+
+.message-divider {
+  margin-top: 2 * $lineHeight;
+  line-height: 1;
+  border-top: 1px solid #979797;
+  text-align: center;
+  color: #979797;
+  font-size: 1em;
+  font-weight: normal;
+  span {
+    background-color: #fff;
+    padding: 0 20px;
+    position: relative;
+    top: -.6em;
+  }
+  & + .message-link .message {
+    border-top: none;
+  }
+}
+
+.refresh-content {
+  display: none;
+  position: fixed;
+  z-index: 5;
+  top: 0;
+  left: 50%;
+  width: 20em;
+  margin-left: -10em;
+  padding: 1em;
+  background: #fff;
+  border-radius: 0 0 10px 10px;
+  text-align: center;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, .5);
+  @include small {
+    width: 16em;
+    margin-left: -8em;
+  }
+}
+.has-js .refresh-content {
+  display: block;
+}
+
+.message-input {
+  position: relative;
+  overflow: hidden;
+  &.from-handhaver {
+    border-radius: $borderRadius;
+    padding: $padding / 2;
+    background-color: $itemActiveBackgroundColor;
+  }
+  &:before {
+    content: 'Eén momentje alstublieft';
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    text-align: center;
+    font-size: $fontSmallSize;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-100%);
+    transition: all .2s ease-out;
+  }
+  &.is-taking-long:before {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+  }
+  &.is-taking-long:after {
+    content: '';
+    position: absolute;
+    top: 1.05em;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    margin-left: -5px;
+    background: $baseColor;
+    border-radius: 50%;
+    transform: translateX(-400%);
+    animation: spinner 2s infinite;
+  }
+  input[type="submit"] {
+    -webkit-appearance: none;
+    transition: all .2s ease-out;
+  }
+
+}
+
+.log-item .blijf-op-de-hoogte {
+  margin-top: $lineHeight/2;
+  padding-top: $lineHeight/2;
+  border-top: 2px dotted #fff;
+}
+
+.message-input form {
+  overflow: hidden;
+  &.is-submitting {
+    animation: submitting 1s;
+  }
+  &.submitted {
+    transform: translateY(-100%) scale(.85);
+    visibility: hidden;
+    animation: none;
+    opacity: 0;
+  }
+}
+
+.message-status {
+  position: relative;
+  text-align: left;
+  padding-bottom: 5px;
+  .pill {
+    position: absolute;
+    right: 0;
+  }
+  .message-status-reacties {
+    position: absolute;
+    right: 0;
+    font-size: $fontExtraSmallSize;
+    font-weight: normal;
+  }
+}
+
+.reactie-status {
+  padding-top: 7px;
+  overflow: hidden;
+  time {
+    float: right;
+  }
+  span {
+    float: left;
+    font-weight: bold;
+    color: #000;
+    
+  }
+}
+
+.pill {
+  display: inline-block;
+  font-weight: normal;
+  background-color: #000;
+  color: #fff;
+  padding: 0 10px;
+  border-radius: 5px;
+  &.message-status-open { background-color: #468ee5; }
+  &.message-status-gesloten { background-color: #494949; }
+  &.message-status-nieuw { background-color: $accentColor; }
+}
+
+.pager {
+  text-align: center;
+  .current {
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+//[data-smiley]:before {
+//  content: '';
+//  position: absolute;
+//  right: 0;
+//  width: 23px;
+//  height: 23px;
+//  background-size: 100% auto;
+//  background-repeat: no-repeat;
+//  background-position: 50% 50%;
+//}
+//[data-smiley=":-@"]:before { background-image: url(../img/ico_smiley-1.png);}
+//[data-smiley=":-("]:before { background-image: url(../img/ico_smiley-2.png);}
+//[data-smiley=":-|"]:before { background-image: url(../img/ico_smiley-3.png);}
+//[data-smiley=":-)"]:before { background-image: url(../img/ico_smiley-4.png);}
+//[data-smiley=":-D"]:before { background-image: url(../img/ico_smiley-5.png);}
+
+.selecteer-standaard-tekst {
+  width: auto;
+  display: inline-block;
+  float: right;
+  margin-bottom: 10px;
+}
+
+
+@keyframes submitting {
+  20% {
+    transform: scale(.85);
+  }
+  40% {
+    transform: translateY(20px) scale(.85);
+  }
+  100% {
+    transform: translateY(-100%) scale(.85);
+  }
+}
+
+@keyframes spinner {
+  50% {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes is-new {
+  from {
+    opacity: 0;
+    transform: scale(.8);
+  }
+}
+

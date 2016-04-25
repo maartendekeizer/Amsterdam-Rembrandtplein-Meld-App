@@ -1,0 +1,19 @@
+@function emCalc($pxWidth, $emSize: $emBase) {
+  @return $pxWidth / $emSize * 1em;
+}
+
+@mixin breakpoint($point) {
+  @media screen and (max-width: $point) { @content; }
+}
+@mixin large(){
+  @media (max-width: $large) { @content; }
+}
+@mixin medium(){
+  @media (max-width: $medium) { @content; }
+}
+@mixin small(){
+  @media (max-width: $small) { @content; }
+}
+@mixin media($px){
+  @media (max-width: $px) { @content; }
+}

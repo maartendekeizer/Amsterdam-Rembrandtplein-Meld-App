@@ -1,0 +1,52 @@
+
+security:
+
+  role_hierarchy:
+    ROLE_ADMIN: [ROLE_USER]
+    ROLE_HANDHAVER: [ROLE_USER]
+    ROLE_MELDER: [ROLE_USER]
+
+  providers:
+    handhavers:
+      entity:
+        class: RembrandtPleinAppBundle:Handhaver
+        property: username
+    api:
+      memory:
+        users: %gams_api_users%
+            
+  encoders:
+    GemeenteAmsterdam\RembrandtPlein\AppBundle\Entity\Handhaver:
+      algorithm: bcrypt
+    Symfony\Component\Security\Core\User\User:
+      algorithm: plaintext
+    
+  firewalls:
+    dev:
+      pattern: ^/(_(profiler|wdt)|css|images|js)/
+      security: false
+    login_firewall:
+      pattern:   ^/handhaver/login$
+      anonymous: ~
+    handhaver:
+      pattern: ^/handhaver
+      provider: handhavers
+      logout: 
+        path: gemeenteamsterdam_rembrandtplein_app_handhaver_logout
+        target: gemeenteamsterdam_rembrandtplein_app_handhaver_index
+      form_login:
+        login_path: gemeenteamsterdam_rembrandtplein_app_handhaver_login
+        check_path: gemeenteamsterdam_rembrandtplein_app_handhaver_logincheck
+        default_target_path: /handhaver
+    api:
+      pattern: ^/api
+      provider: api
+      http_basic:
+        realm: Please login with your API credentials
+    main:
+      anonymous: ~
+  
+  access_control:
+    - { path: ^/handhaver/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/handhaver, roles: ROLE_HANDHAVER }
+    - { path: ^/api, roles: ROLE_API }

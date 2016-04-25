@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  max-width: $bodyWidth;
+  margin: 0 auto;
+  padding: ($lineHeight + (3 * $padding)) $padding/2 $padding;
+  &.page-handhaver {
+    padding-top: $lineHeight + (3 * $padding) + $padding/2 ;
+  }
+}
+
+.has-js .is-hidden {
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: .2s ease-out;
+  transition-property: opacity, transform, max-height, padding-top, padding-bottom, margin-top, margin-bottom;
+  transform: translateY(-50px);
+  max-height: 0;
+  &.is-active {
+    visibility: visible;
+    opacity: 1;
+    transform: translateY(0);
+    max-height: 1000px;
+  }
+}
+.is-invisible {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.needs-js {
+  display: none;
+}
+
+.has-js .needs-js {
+  display: block;
+}
+
+.has-js .irrelevant-with-js {
+  display: none;
+}
+
+.is-irrelevant {
+  display: none;
+}
+
+strong.is-relevant {
+  display: inline;
+}

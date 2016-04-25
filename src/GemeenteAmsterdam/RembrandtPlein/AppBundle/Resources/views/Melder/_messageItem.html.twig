@@ -1,0 +1,27 @@
+{%- import 'RembrandtPleinAppBundle:macros:timestamp.html.twig' as time -%}
+
+<a class="message-link{% if app.request.query.has('since') and melding.getGewijzigdDatumtijd()|date('U') > app.request.query.getInt('since') %} message-is-new{% endif %}" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_detailmelding', { 'meldingUuid': melding.uuid, 'secret': melding.secret }) }}" data-since="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_lijstoverviewmelding', {'since': melding.getGewijzigdDatumtijd()|date('U')}) }}">
+  <article class="message">
+    <p class="meta message-status" {% for reactie in melding.reacties %}{% if reactie.afzender == 'Melder' and reactie.beoordeling %} data-smiley="{{ reactie.beoordeling }}"{% endif%}{% endfor %}>
+      {{ time.stamp(melding.aanmaakDatumtijd) }}
+      {% if not melding.isGelezen %}
+        <strong class="pill left message-status-nieuw">ongelezen</strong>
+      {% endif %}
+    </p>
+    <p>{{ melding.getFirstReactie.bericht|truncate(30, true, '…') }}</p>
+    <p class="meta reactie-status">
+      {% if melding.aantalBerichtReacties > 0 %}
+        <span>Berichten ({{ melding.aantalBerichtReacties }})</span>
+        {{ time.stamp(melding.laatsteBerichtReactie.aanmaakDatumtijd, true) }}
+      {% elseif melding.isGelezen %}
+        <span>Gelezen</span>
+        {{ time.stamp(melding.datumtijdGelezen, true) }}
+      {% elseif melding.isVerstuurd %}
+        <span>Ontvangen</span>
+        {{ time.stamp(melding.datumtijdVerstuurd, true) }}
+      {% else %}
+        <span>Nog niet ontvangen</span>
+      {% endif %}
+    </p>
+  </article>
+</a>

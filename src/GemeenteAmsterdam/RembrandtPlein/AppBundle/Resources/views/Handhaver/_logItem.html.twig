@@ -1,0 +1,37 @@
+{%- import 'RembrandtPleinAppBundle:macros:timestamp.html.twig' as time -%}
+
+{%- set handhaverString -%}
+  {%- if reactie.handhaver -%}
+    <i class="icon-handhaver" style="background-image:url({{ asset(reactie.handhaver.avatar) }})">{{ reactie.handhaver.naam }}</i>
+  {%- endif %}
+{%- endset -%}
+
+{%- set dataHref -%}
+  {{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_detailmelding', { 'meldingUuid': melding.uuid, }) }}?{{ reactie.id }}#reactie-{{ reactie.id }}
+{%- endset -%}
+
+{%- set dataSince -%}
+  {{ path('gemeenteamsterdam_rembrandtplein_app_handhaver_reactielijstmelding', {'meldingUuid': melding.uuid, 'sinceReactieId': reactie.id }) }}
+{%- endset -%}
+
+{%- if reactie.type != 'Verstuurd' and reactie.type != 'ReactieToestaan' -%}
+  <div id="reactie-{{ reactie.id }}" data-href="{{ dataHref }}" class="log-item small afzender-{{ reactie.afzender|lower }}{% if reactie.type == 'Gelezen' and reactie.isNew %} log-read" data-decorator="log-read-notification" data-relative-to="message{% elseif partial %} log-read" data-decorator="delay-display{% endif %}" data-since="{{ dataSince }}" {% if reactie.afzender == 'Melder' and reactie.beoordeling %} data-smiley="{{ reactie.beoordeling }}"{% endif%}>
+    <div class="reactie-meta">
+      {% if reactie.type == 'Gelezen' %}
+        <strong class="log-item-type">Gelezen</strong> <span class="reactie-door"> door team Rembrandtplein {{ handhaverString }}</span>
+      {% elseif reactie.type == 'Verstuurd' %}
+        <p class="bericht">U ontvangt zo spoedig mogelijk een reactie via deze pagina</p>
+      {% else %}
+        {% if reactie.afzender == 'Handhaver' %}
+          <strong class="log-item-type">Bericht</strong> <span class="reactie-door"> van team Rembrandtplein {{ handhaverString }}</span>
+        {% elseif reactie.afzender == 'Melder' %}
+          <strong class="log-item-type">Bericht</strong> <span class="reactie-door">van melder <i class="icon-melder">Melder</i></span>
+        {% endif %}
+        <p class="bericht">{{ reactie.bericht|replace({'/': '​/​'})|nl2br }}</p>
+      {% endif %}
+      {% if reactie.type != 'Verstuurd' %}
+        {{ time.stamp(reactie.aanmaakDatumtijd, true) }}
+      {% endif %}
+    </div>
+  </div>
+{%- endif -%}

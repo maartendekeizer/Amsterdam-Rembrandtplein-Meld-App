@@ -1,0 +1,6 @@
+Reactie op uw melding: 
+{{ reactie.bericht }} 
+
+{% if melding.reactieVanMelderToestaan %}
+Reageer via {{ url('gemeenteamsterdam_rembrandtplein_app_melder_detailmelding', {'meldingUuid': melding.getUuid, 'secret': melding.getSecret}) }}
+{% endif %}

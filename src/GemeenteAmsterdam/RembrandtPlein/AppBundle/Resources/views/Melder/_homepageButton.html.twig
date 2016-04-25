@@ -1,0 +1,25 @@
+{% if activeDienst %}
+  <nav id="in-service">
+    <ul>
+      <li><a class="button" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_createmelding') }}">Nu melden <i class="icon-chevron"></i></a></li>
+    </ul>
+  </nav>
+{% else %}
+  <section class="not-available center well" data-decorator="availability-poller">
+    <p>Momenteel kunt u via deze website geen overlast melden</p>
+    <p><a class="link" href="#wanneer-wel" data-handler="toggle-visibility" data-target="wanneer-wel">Wanneer wel?</a></p>
+    <div id="wanneer-wel" class="extra-info is-hidden center">
+      <p>U kunt via deze website <strong>rechtstreeks</strong> overlast melden aan het handhavingsteam op het Rembrandtplein op:</p>
+      <table>
+        <tbody>
+          <tr><th>do op vr</th><td>van ca. 23:00 - 6:00</td></tr>
+          <tr><th>vr op za</th><td>van ca. 23:00 - 6:00</td></tr>
+          <tr><th>za op zo</th><td>van ca. 23:00 - 6:00</td></tr>
+        </tbody>
+      </table>
+      <p>Het is nu <strong>{{ "now"|localizeddate('none', 'none', 'nl', false, 'EEEE dd MMM HH:mm') }}</strong></p>
+      <p>Wilt u nu toch overlast melden?</p>
+      <p>Bel dan met <a href="tel:14020" class="link">14020</a> (informatienummer van de Gemeente Amsterdam)</p>
+    </div>
+  </section>
+{% endif %}

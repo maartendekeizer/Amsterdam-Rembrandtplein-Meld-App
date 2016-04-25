@@ -1,0 +1,38 @@
+html {
+  background-color:	$canvasBackgroundColor;
+}
+body {
+  background-color: $backgroundColor;
+}
+
+p, ul, ol, fieldset, blockquote, figure {
+  margin-top: 0;
+  margin-bottom: $lineHeight;
+}
+figure {
+  margin-left: 0;
+  margin-right: 0;
+  margin-bottom: $lineHeight;
+}
+
+img, input[type="image"] {
+  max-width: 100%;
+  height: auto;
+}
+
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
+legend {
+  padding: 0;
+}
+
+header, footer, section, article {
+  display: block;
+}
+
+a, button, input, select, textarea, label {
+  touch-action: manipulation;
+}

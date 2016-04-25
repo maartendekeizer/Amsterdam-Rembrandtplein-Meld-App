@@ -1,0 +1,38 @@
+{% extends "base.html.twig" %}
+
+{% block header %}{% endblock %}
+
+{% block body %}
+
+  <section class="intro">
+    <div class="inner">
+      <img src="{{ asset('/assets/img/logo-amsterdam.png') }}" alt="Gemeente Amsterdam" width="84" height="38">
+      <h1>Meld overlast Rembrandtplein</h1>
+      <h2>Direct aan ons team op locatie</h2>
+      <table>
+        <tr>
+          <th>do op vr</th>
+          <td>van ca. 23:00 tot 6:00</td>
+        </tr>
+        <tr>
+          <th>vr op za</th>
+          <td>van ca. 23:00 tot 6:00</td>
+        </tr>
+        <tr>
+          <th>za op zo</th>
+          <td>van ca. 23:00 tot 6:00</td>
+        </tr>
+      </table>
+    </div>
+  </section>
+
+  {% include 'RembrandtPleinAppBundle:Melder:_homepageButton.html.twig' %}
+
+  <nav>
+    <ul>
+      <li><a class="secondary button" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_about') }}">Hoe werkt het</a></li>
+      <li><a class="secondary button" href="{{ path('gemeenteamsterdam_rembrandtplein_app_melder_overview') }}">Mijn meldingen</a></li>
+    </ul>
+  </nav>
+
+{% endblock %}
