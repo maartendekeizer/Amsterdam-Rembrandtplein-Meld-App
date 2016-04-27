@@ -16,7 +16,7 @@ ontwikkeld ook publiek beschikbaar is.
 
 Deze repository bevat een "as-is" kopie van het project op moment van publiceren. Deze kopie wordt niet actief onderhouden.
 
-Security problemen kunnen gemeld worden bij [datapunt@ois.amsterdam.nl](datapunt@ois.amsterdam.nl)
+Security problemen kunnen gemeld worden bij [datapunt.ois@amsterdam.nl](datapunt.ois@amsterdam.nl)
 
 ## Wat mag ik met deze code
 
