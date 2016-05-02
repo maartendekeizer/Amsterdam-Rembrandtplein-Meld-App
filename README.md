@@ -3,6 +3,8 @@
 Een app voor de Vliegende brigade van de Gemeente Amsterdam. Meer informatie 
 over dit project is te vinden op [de website van het Datalab van de Gemeente Amsterdam](https://www.datalabamsterdam.nl/projecten/rembrandtplein)
 
+Meer informatie [datapunt.ois@amsterdam.nl](datapunt.ois@amsterdam.nl)
+
 ## Waarom is deze code gedeeld
 
 Het FIXXX-team van de Gemeente Amsterdam ontwikkelt software voor de gemeente.
@@ -15,8 +17,6 @@ ontwikkeld ook publiek beschikbaar is.
 ## Onderhoud en security
 
 Deze repository bevat een "as-is" kopie van het project op moment van publiceren. Deze kopie wordt niet actief onderhouden.
-
-Security problemen kunnen gemeld worden bij [datapunt.ois@amsterdam.nl](datapunt.ois@amsterdam.nl)
 
 ## Wat mag ik met deze code
 
